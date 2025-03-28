@@ -39,14 +39,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-    
+
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: stable
           targets: ${{ matrix.job.target }}
           components: "rustfmt"
-          
+
       - uses: Swatinem/rust-cache@v2
         with:
           prefix-key: ${{ matrix.job.os }}
@@ -56,7 +56,7 @@ jobs:
         with:
           command: build
           args: --release --all-features --target=${{ matrix.job.target }}
-          use-cross: true  
+          use-cross: true
 
       - name: Exec chmod
         run: chmod -v a+x target/${{ matrix.job.target }}/release/*
@@ -70,7 +70,7 @@ jobs:
             target/${{ matrix.job.target }}/release/hbbs
             target/${{ matrix.job.target }}/release/rustdesk-utils
           if-no-files-found: error
-  
+
   # Build and push single-arch Docker images to ghcr.io
   create-s6-overlay-images:
     name: Docker push - ${{ matrix.job.name }}
@@ -103,7 +103,7 @@ jobs:
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
-      
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -114,7 +114,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-        
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
@@ -239,7 +239,7 @@ jobs:
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
-      
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -250,7 +250,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-        
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
