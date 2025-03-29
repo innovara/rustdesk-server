@@ -1,6 +1,7 @@
 name: Build and publish to ghcr.io
 
 on:
+  workflow_call:
   workflow_dispatch:
   push:
     tags:
@@ -178,6 +179,7 @@ jobs:
             ghcr.io/${{ github.repository }}-s6:${{ env.GIT_TAG }}-armv7,
             ghcr.io/${{ github.repository }}-s6:${{ env.GIT_TAG }}-i386
           push: true
+          amend: true
 
       # Create and push manifest for :major tag
       - name: Create and push manifest (:major)
@@ -190,6 +192,7 @@ jobs:
             ghcr.io/${{ github.repository }}-s6:${{ env.MAJOR_TAG }}-armv7,
             ghcr.io/${{ github.repository }}-s6:${{ env.MAJOR_TAG }}-i386
           push: true
+          amend: true
 
       # Create and push manifest for :latest tag
       - name: Create and push manifest (:latest)
@@ -202,6 +205,7 @@ jobs:
             ghcr.io/${{ github.repository }}-s6:${{ env.LATEST_TAG }}-armv7,
             ghcr.io/${{ github.repository }}-s6:${{ env.LATEST_TAG }}-i386
           push: true
+          amend: true
 
   # Build and push single-arch Docker images to ghcr.io
   create-classic-images:
@@ -309,6 +313,7 @@ jobs:
             ghcr.io/${{ github.repository }}:${{ env.GIT_TAG }}-armv7,
             ghcr.io/${{ github.repository }}:${{ env.GIT_TAG }}-i386
           push: true
+          amend: true
 
       # Create and push manifest for :major tag
       - name: Create and push manifest (:major)
@@ -321,6 +326,7 @@ jobs:
             ghcr.io/${{ github.repository }}:${{ env.MAJOR_TAG }}-armv7,
             ghcr.io/${{ github.repository }}:${{ env.MAJOR_TAG }}-i386
           push: true
+          amend: true
 
       # Create and push manifest for :latest tag
       - name: Create and push manifest (:latest)
@@ -333,3 +339,4 @@ jobs:
             ghcr.io/${{ github.repository }}:${{ env.LATEST_TAG }}-armv7,
             ghcr.io/${{ github.repository }}:${{ env.LATEST_TAG }}-i386
           push: true
+          amend: true
